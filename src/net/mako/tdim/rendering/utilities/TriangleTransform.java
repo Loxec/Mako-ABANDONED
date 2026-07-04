@@ -30,8 +30,17 @@ public class TriangleTransform {
 
         double angle = Math.toRadians(angleDegrees);
 
-        double centerX = (t.v1.getX() + t.v2.getY() + t.v3.getY()) / 3.0;
-        double centerY = (t.v1.getY() + t.v2.getY() + t.v3.getY()) / 3.0;
+        double centerX = (
+                t.v1.getX() +
+                        t.v2.getX() +
+                        t.v3.getX()
+        ) / 3.0;
+
+        double centerY = (
+                t.v1.getY() +
+                        t.v2.getY() +
+                        t.v3.getY()
+        ) / 3.0;
 
         for (Vertex v : t.vertexes) {
 

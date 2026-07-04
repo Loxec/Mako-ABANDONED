@@ -100,12 +100,20 @@ public class Triangle {
         }
     }
 
+    public void reiterateVertexes(){
+        vertexes.clear();
+        vertexes.add(v1);
+        vertexes.add(v2);
+        vertexes.add(v3);
+    }
+
     public Vertex getV1() {
         return v1;
     }
 
     public void setV1(Vertex v1) {
         this.v1 = v1;
+        reiterateVertexes();
     }
 
     public Vertex getV2() {
@@ -114,6 +122,7 @@ public class Triangle {
 
     public void setV2(Vertex v2) {
         this.v2 = v2;
+        reiterateVertexes();
     }
 
     public Vertex getV3() {
@@ -122,6 +131,7 @@ public class Triangle {
 
     public void setV3(Vertex v3) {
         this.v3 = v3;
+        reiterateVertexes();
     }
 
     public void setNextVertex(Vertex v) {
@@ -135,6 +145,8 @@ public class Triangle {
             this.v3 = v;
             v_num = 0;
         }
+
+        reiterateVertexes();
     }
 
     public int getV_num() {
@@ -143,5 +155,27 @@ public class Triangle {
 
     public void setV_num(int v_num) {
         this.v_num = v_num;
+    }
+
+    public List<Vertex> getVertexes() {
+        return vertexes;
+    }
+
+    public void setVertexes(List<Vertex> vertexes) {
+        this.vertexes = vertexes;
+    }
+
+    public Triangle copy() {
+
+        Triangle copy = new Triangle(
+                v1.copy(),
+                v2.copy(),
+                v3.copy(),
+                filled,
+                color,
+                tag
+        );
+
+        return copy;
     }
 }

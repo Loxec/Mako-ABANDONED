@@ -9,8 +9,8 @@ import java.net.URL;
 public class Sprite {
 
     private final String path;
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private double rotation;
     private double scaleX = 64;
     private double scaleY = 64;
@@ -54,11 +54,11 @@ public class Sprite {
         return new File(url.getPath());
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -70,14 +70,14 @@ public class Sprite {
         this.rotation = rotation;
     }
 
-    public void setPosition(int x, int y) {
+    public void setPosition(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public void move(int dx, int dy) {
-        this.x += dx;
-        this.y += dy;
+    public void move(double dx, double dy,double speed) {
+        this.x += dx - speed;
+        this.y += dy + speed;
     }
 
     public double getScaleX() {

@@ -6,14 +6,14 @@ import java.util.function.Consumer;
 
 public class KeyHandler implements KeyListener {
 
-    public Consumer onKeyPressed;
-    public Consumer onKeyReleased;
-    public Consumer onKeyTyped;
+    public Consumer<KeyEvent> onKeyPressed;
+    public Consumer<KeyEvent> onKeyReleased;
+    public Consumer<KeyEvent> onKeyTyped;
 
-    public Consumer onForwardPressed;
-    public Consumer onBackwardPressed;
-    public Consumer onLeftPressed;
-    public Consumer onRightPressed;
+    public Consumer<KeyEvent> onForwardPressed;
+    public Consumer<KeyEvent> onBackwardPressed;
+    public Consumer<KeyEvent> onLeftPressed;
+    public Consumer<KeyEvent> onRightPressed;
 
     @Override
     public void keyTyped(KeyEvent e) {

@@ -96,6 +96,7 @@ import net.mako.tdim.rendering.components.Mesh;
 import net.mako.tdim.rendering.components.Sprite;
 import net.mako.tdim.rendering.components.Triangle;
 import net.mako.tdim.rendering.components.Vertex;
+import net.mako.tdim.technicalities.Utils;
 import net.mako.tdim.technicalities.input.KeyHandler;
 import net.mako.tdim.rendering.msh.ModelParser;
 import net.mako.tdim.rendering.*;
@@ -153,10 +154,10 @@ public class Main {
         panel.addMeshToPanel(t2.toMesh());
 
         // adding the models and not the meshes                                 we need to place our model somewhere
-        panel.addModelToPanel(basic_t_model.getModel(basic_t_model.getFormatType()),0,0);
-        panel.addModelToPanel(indexed_t_model.getModel(indexed_t_model.getFormatType()),0,50);
-        panel.addModelToPanel(multimesh_model.getModel(multimesh_model.getFormatType()),300,0);
-        panel.addModelToPanel(indexed_multimesh_model.getModel(indexed_multimesh_model.getFormatType()),0,0);
+        panel.addModelToPanel(basic_t_model.getModel(basic_t_model.getFormatType()), 0, 0);
+        panel.addModelToPanel(indexed_t_model.getModel(indexed_t_model.getFormatType()), 0, 50);
+        panel.addModelToPanel(multimesh_model.getModel(multimesh_model.getFormatType()), 300, 0);
+        panel.addModelToPanel(indexed_multimesh_model.getModel(indexed_multimesh_model.getFormatType()), 0, 0);
 
         //load a new sprite
         Sprite sprite = new Sprite("/assets/skybox_pearl.png", 300, 300);

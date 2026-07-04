@@ -7,14 +7,14 @@ import java.util.function.Consumer;
 
 public class MouseHandler implements MouseListener, MouseMotionListener {
 
-    public Consumer onMouseClicked;
-    public Consumer onMousePressed;
-    public Consumer onMouseReleased;
-    public Consumer onMouseEntered;
-    public Consumer onMouseExited;
+    public Consumer<MouseEvent> onMouseClicked;
+    public Consumer<MouseEvent> onMousePressed;
+    public Consumer<MouseEvent> onMouseReleased;
+    public Consumer<MouseEvent> onMouseEntered;
+    public Consumer<MouseEvent> onMouseExited;
 
-    public Consumer onMouseDragged;
-    public Consumer onMouseMoved;
+    public Consumer<MouseEvent> onMouseDragged;
+    public Consumer<MouseEvent> onMouseMoved;
 
     @Override
     public void mouseClicked(MouseEvent e) {

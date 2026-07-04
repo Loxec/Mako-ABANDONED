@@ -25,4 +25,14 @@ public class Mesh {
         this.triangles = triangles;
     }
 
+    public Mesh copy() {
+
+        List<Triangle> copiedTriangles = new ArrayList<>();
+
+        for (Triangle triangle : triangles) {
+            copiedTriangles.add(triangle.copy());
+        }
+
+        return new Mesh(copiedTriangles);
+    }
 }

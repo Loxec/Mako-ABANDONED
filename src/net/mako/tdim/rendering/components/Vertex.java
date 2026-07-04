@@ -26,4 +26,8 @@ public class Vertex {
         this.y = newY;
     }
 
+    public Vertex copy() {
+        return new Vertex(x, y);
+    }
+
 }
