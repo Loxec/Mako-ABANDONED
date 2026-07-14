@@ -15,11 +15,14 @@ import java.util.List;
 public class RenderPanel extends JPanel {
 
     private final List<Mesh> meshes = Collections.synchronizedList(new ArrayList<>());
+    private final List<Mesh3D> meshes3D = Collections.synchronizedList(new ArrayList<>());
     private final List<Sprite> sprites = Collections.synchronizedList(new ArrayList<>());
 
-    private final List<Mesh> deffered_meshes_register = Collections.synchronizedList(new ArrayList<>());
-    private final List<Mesh3D> deffered_meshes3D_register = Collections.synchronizedList(new ArrayList<>());
-    private final List<Sprite> deffered_sprites_register = Collections.synchronizedList(new ArrayList<>());
+    private final List<Mesh> deferred_meshes_register = Collections.synchronizedList(new ArrayList<>());
+    private final List<Mesh3D> deferred_meshes3D_register = Collections.synchronizedList(new ArrayList<>());
+    private final List<Sprite> deferred_sprites_register = Collections.synchronizedList(new ArrayList<>());
+
+    public Camera camera;
 
     public RenderPanel() {
 
@@ -30,71 +33,91 @@ public class RenderPanel extends JPanel {
         this.setFocusable(true);
         this.requestFocusInWindow();
 
-        this.setVisible(true);
-
+        this.camera = new Camera(
+                0,
+                0,
+                0,
+                0,
+                0,
+                500
+        );
     }
 
-    public void addMeshToPanel(Mesh mesh) {
-        deffered_meshes_register.add(mesh);
-    }
-    public void addMesh3DToPanel(Mesh3D mesh) {
-        deffered_meshes3D_register.add(mesh);
-    }
-    public void addSpriteToPanel(Sprite sprite) {
-        deffered_sprites_register.add(sprite);
-    }
-    public void addModelToPanel(Model model, double cx, double cy) {
+    public void add(Model model, double cx, double cy) {
         for (Mesh mesh : new ArrayList<>(model.getMeshes())) {
 
             for (Triangle t : mesh.getTriangles()) {
 
-                for (Vertex v : new ArrayList<>(t.getVertexes())) {
-
-                    Vertex newV = new Vertex(cx + v.getX(), cy + v.getY());
-
-                    t.setNextVertex(newV);
+                for (Vertex v : t.getVertexes()) {
+                    v.setX(v.getX() + cx);
+                    v.setY(v.getY() + cy);
                 }
             }
 
-            deffered_meshes_register.add(mesh);
+            deferred_meshes_register.add(mesh);
         }
     }
 
-    public void removeMeshFromPanel(Mesh mesh) {
-        meshes.remove(mesh);
+    public void add(Mesh mesh) {
+        deferred_meshes_register.add(mesh);
     }
 
-    public void removeSpriteFromPanel(Sprite sprite) {
-        sprites.remove(sprite);
+    public void add(Mesh3D mesh) {
+        deferred_meshes3D_register.add(mesh);
+    }
+
+    public void add(Sprite sprite) {
+        deferred_sprites_register.add(sprite);
+    }
+
+    public void remove(Mesh mesh) {
+        deferred_meshes_register.remove(mesh);
+    }
+
+    public void remove(Mesh3D mesh) {
+        deferred_meshes3D_register.remove(mesh);
+    }
+
+    public void remove(Sprite sprite) {
+        deferred_sprites_register.remove(sprite);
     }
 
     public void removeAllMeshes() {
-        meshes.clear();
+        deferred_meshes_register.clear();
+    }
+
+    public void removeAllMesh3Ds() {
+        deferred_meshes3D_register.clear();
     }
 
     public void removeAllSprites() {
-        sprites.clear();
+        deferred_sprites_register.clear();
     }
 
-    public boolean containsMesh(Mesh mesh) {
-        return meshes.contains(mesh);
+    public boolean contains(Mesh mesh) {
+        return deferred_meshes_register.contains(mesh);
     }
 
-    public boolean containsSprite(Sprite sprite) {
-        return sprites.contains(sprite);
+    public boolean contains(Sprite sprite) {
+        return deferred_sprites_register.contains(sprite);
     }
 
     public void clear() {
-        meshes.clear();
-        sprites.clear();
+        deferred_meshes_register.clear();
+        deferred_sprites_register.clear();
+        deferred_meshes3D_register.clear();
     }
 
     public int getMeshCount() {
-        return meshes.size();
+        return deferred_meshes_register.size();
     }
 
     public int getSpriteCount() {
-        return sprites.size();
+        return deferred_sprites_register.size();
+    }
+
+    public int getMesh3DCount(){
+        return deferred_meshes3D_register.size();
     }
 
     public void addKeyHandlerToPanel(KeyHandler keyHandler) {
@@ -112,17 +135,42 @@ public class RenderPanel extends JPanel {
                 for (Triangle t : mesh.getTriangles()) {
                     g2d.setColor(t.color);
                     Path2D path = new Path2D.Double();
-                    path.moveTo(t.v1.getX(), t.v1.getY());
-                    path.lineTo(t.v2.getX(), t.v2.getY());
-                    path.lineTo(t.v3.getX(), t.v3.getY());
+                    path.moveTo(t.vertexes.get(0).getX(), t.vertexes.get(0).getY());
+                    path.lineTo(t.vertexes.get(1).getX(), t.vertexes.get(1).getY());
+                    path.lineTo(t.vertexes.get(2).getX(), t.vertexes.get(2).getY());
                     path.closePath();
-                    g2d.draw(path);
-
                     if (t.filled) {
                         g2d.fill(path);
                     }
+
+                    g2d.draw(path);
                 }
             }
+        }
+    }
+
+    private void drawMesh3D(
+            Graphics2D g2d,
+            Mesh3D mesh,
+            Camera camera
+    ) {
+
+        for(Triangle3D t : mesh.getTriangles()) {
+
+            g2d.setColor(t.color);
+
+            Point p1 = camera.project(t.vertexes.get(0));
+            Point p2 = camera.project(t.vertexes.get(1));
+            Point p3 = camera.project(t.vertexes.get(2));
+
+            Path2D path = new Path2D.Double();
+
+            path.moveTo(p1.x,p1.y);
+            path.lineTo(p2.x,p2.y);
+            path.lineTo(p3.x,p3.y);
+            path.closePath();
+
+            g2d.draw(path);
         }
     }
 
@@ -162,35 +210,35 @@ public class RenderPanel extends JPanel {
         );
 
         drawMeshes(g2d);
+        for(Mesh3D mesh : meshes3D) {
+            drawMesh3D(g2d,mesh,camera);
+        }
         drawSprites(g2d);
         g2d.dispose();
     }
 
-    public void refresh(){
-        this.getMeshes().clear();
-        this.getSprites().clear();
+    public void refresh() {
 
-        this.meshes.addAll(this.deffered_meshes_register);
-        this.sprites.addAll(this.deffered_sprites_register);
-    }
+        meshes.clear();
+        sprites.clear();
+        meshes3D.clear();
 
-    public void refresh3D(Camera camera) {
-        this.getMeshes().clear();
-        this.getSprites().clear();
-
-        this.meshes.addAll(this.deffered_meshes_register);
-        this.sprites.addAll(this.deffered_sprites_register);
-
-        for(Mesh3D mesh : this.deffered_meshes3D_register){
-            this.meshes.add(mesh.toMesh(camera));
-        }
+        meshes.addAll(deferred_meshes_register);
+        sprites.addAll(deferred_sprites_register);
+        meshes3D.addAll(deferred_meshes3D_register);
     }
 
     public List<Mesh> getMeshes() {
-        return this.meshes;
+        return deferred_meshes_register;
     }
     public List<Sprite> getSprites() {
-        return this.sprites;
+        return deferred_sprites_register;
     }
+    public List<Mesh3D> getMesh3Ds() {return deferred_meshes3D_register;}
+
+
+    public Camera getCamera() {return camera;}
+
+    public void setCamera(Camera camera) {this.camera = camera;}
 
 }

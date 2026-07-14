@@ -100,14 +100,17 @@ public class ModelConverter {
                     );
                 }
 
-                triangles.add(new Triangle(
+                Triangle newT = new Triangle(
                         currentVertices.get(0),
                         currentVertices.get(1),
                         currentVertices.get(2),
-                        filled,
-                        color,
-                        tag
-                ));
+                        filled
+                );
+
+                newT.setTag(tag);
+                newT.setColor(color);
+
+                triangles.add(newT);
 
                 inside = false;
                 continue;
@@ -295,16 +298,17 @@ public class ModelConverter {
                         );
                     }
 
-                    currentTriangles.add(
-                            new Triangle(
-                                    vertices.get(currentIndices.get(0)),
-                                    vertices.get(currentIndices.get(1)),
-                                    vertices.get(currentIndices.get(2)),
-                                    filled,
-                                    color,
-                                    tag
-                            )
+                    Triangle newT = new Triangle(
+                            vertices.get(currentIndices.get(0)),
+                            vertices.get(currentIndices.get(1)),
+                            vertices.get(currentIndices.get(2)),
+                            filled
                     );
+
+                    newT.setTag(tag);
+                    newT.setColor(color);
+
+                    currentTriangles.add(newT);
 
                     insideTriangle = false;
                     continue;
@@ -519,16 +523,17 @@ public class ModelConverter {
                         );
                     }
 
-                    triangles.add(
-                            new Triangle(
-                                    currentVertices.get(0),
-                                    currentVertices.get(1),
-                                    currentVertices.get(2),
-                                    filled,
-                                    color,
-                                    tag
-                            )
+                    Triangle newT = new Triangle(
+                            currentVertices.get(0),
+                            currentVertices.get(1),
+                            currentVertices.get(2),
+                            filled
                     );
+
+                    newT.setTag(tag);
+                    newT.setColor(color);
+
+                    triangles.add(newT);
 
                     insideTriangle = false;
                     continue;
@@ -694,14 +699,17 @@ public class ModelConverter {
                         throw new RuntimeException("Triangle must have 3 vertices");
                     }
 
-                    triangles.add(new Triangle(
+                    Triangle newT = new Triangle(
                             current.get(0),
                             current.get(1),
                             current.get(2),
-                            filled,
-                            color,
-                            tag
-                    ));
+                            filled
+                    );
+
+                    newT.setTag(tag);
+                    newT.setColor(color);
+
+                    triangles.add(newT);
 
                     current.clear();
                     inTriangles = false;

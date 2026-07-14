@@ -21,17 +21,6 @@ public class Rectangle {
         this.color=Color.WHITE;
     };
 
-    public Rectangle(Vertex v1, Vertex v4, boolean filled, Color color){
-        this.v1=v1;
-        this.v2= new Vertex(v4.getX(),v1.getY());
-        this.v3= new Vertex(v1.getX(),v4.getY());
-        this.v4=v4;
-        this.TRIANGLE1 = new Triangle(this.v1,this.v2,this.v3,filled,color);
-        this.TRIANGLE2 = new Triangle(this.v2,this.v3,this.v4,filled,color);
-        this.filled=filled;
-        this.color=color;
-    };
-
     public Mesh toMesh() {
         return new Mesh(
                 java.util.List.of(

@@ -77,9 +77,9 @@ public class Utils {
     }
 
     public static Triangle T3dTT2d(Triangle3D t,Camera cam){
-        Vertex v1 = project(t.getV1(),cam);
-        Vertex v2 = project(t.getV2(),cam);
-        Vertex v3 = project(t.getV3(),cam);
+        Vertex v1 = project(t.vertexes.get(0),cam);
+        Vertex v2 = project(t.vertexes.get(1),cam);
+        Vertex v3 = project(t.vertexes.get(2),cam);
 
         return new Triangle(v1,v2,v3,false);
     }

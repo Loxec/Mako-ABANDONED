@@ -39,15 +39,15 @@ public class Triangle3DTransform {
         double angle = Math.toRadians(angleDegrees);
 
         double centerY = (
-                t.v1.getY() +
-                        t.v2.getY() +
-                        t.v3.getY()
+                t.vertexes.get(0).getY() +
+                        t.vertexes.get(1).getY() +
+                        t.vertexes.get(2).getY()
         ) / 3.0;
 
         double centerZ = (
-                t.v1.getZ() +
-                        t.v2.getZ() +
-                        t.v3.getZ()
+                t.vertexes.get(0).getZ() +
+                        t.vertexes.get(1).getZ() +
+                        t.vertexes.get(2).getZ()
         ) / 3.0;
 
 
@@ -74,15 +74,15 @@ public class Triangle3DTransform {
         double angle = Math.toRadians(angleDegrees);
 
         double centerX = (
-                t.v1.getX() +
-                        t.v2.getX() +
-                        t.v3.getX()
+                t.vertexes.get(0).getX() +
+                        t.vertexes.get(1).getX() +
+                        t.vertexes.get(2).getX()
         ) / 3.0;
 
         double centerZ = (
-                t.v1.getZ() +
-                        t.v2.getZ() +
-                        t.v3.getZ()
+                t.vertexes.get(0).getZ() +
+                        t.vertexes.get(1).getZ() +
+                        t.vertexes.get(2).getZ()
         ) / 3.0;
 
 
@@ -109,15 +109,15 @@ public class Triangle3DTransform {
         double angle = Math.toRadians(angleDegrees);
 
         double centerX = (
-                t.v1.getX() +
-                        t.v2.getX() +
-                        t.v3.getX()
+                t.vertexes.get(0).getX() +
+                        t.vertexes.get(1).getX() +
+                        t.vertexes.get(2).getX()
         ) / 3.0;
 
         double centerY = (
-                t.v1.getY() +
-                        t.v2.getY() +
-                        t.v3.getY()
+                t.vertexes.get(0).getY() +
+                        t.vertexes.get(1).getY() +
+                        t.vertexes.get(2).getY()
         ) / 3.0;
 
 
@@ -141,21 +141,21 @@ public class Triangle3DTransform {
     public static void scale(double amount, Triangle3D t) {
 
         double centerX = (
-                t.v1.getX() +
-                        t.v2.getX() +
-                        t.v3.getX()
+                t.vertexes.get(0).getX() +
+                        t.vertexes.get(1).getX() +
+                        t.vertexes.get(2).getX()
         ) / 3.0;
 
         double centerY = (
-                t.v1.getY() +
-                        t.v2.getY() +
-                        t.v3.getY()
+                t.vertexes.get(0).getY() +
+                        t.vertexes.get(1).getY() +
+                        t.vertexes.get(2).getY()
         ) / 3.0;
 
         double centerZ = (
-                t.v1.getZ() +
-                        t.v2.getZ() +
-                        t.v3.getZ()
+                t.vertexes.get(0).getZ() +
+                        t.vertexes.get(1).getZ() +
+                        t.vertexes.get(2).getZ()
         ) / 3.0;
 
 
