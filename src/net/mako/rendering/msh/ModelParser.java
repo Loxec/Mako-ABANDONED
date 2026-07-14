@@ -1,6 +1,6 @@
-package net.mako.tdim.rendering.msh;
+package net.mako.rendering.msh;
 
-import net.mako.tdim.rendering.components.Model;
+import net.mako.rendering.components.Model;
 
 import java.io.*;
 import java.net.URL;

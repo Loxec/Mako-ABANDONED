@@ -1,8 +1,10 @@
-package net.mako.tdim.technicalities;
+package net.mako.technicalities;
 
 import java.util.function.Consumer;
 
 public class GameThread extends Thread {
+
+    private int tick = 0;
 
     private Runnable startCallback;
     private Runnable renderCallback;
@@ -51,6 +53,7 @@ public class GameThread extends Thread {
 
     public void stopGame() {
         running = false;
+        tick = 0;
     }
 
     public boolean isPaused() {
@@ -111,10 +114,20 @@ public class GameThread extends Thread {
                     interrupt();
                 }
             }
+
+            tick++;
         }
 
         if (stopCallback != null) {
             stopCallback.run();
         }
+    }
+
+    public int getTick() {
+        return tick;
+    }
+
+    public void setTick(int tick) {
+        this.tick = tick;
     }
 }

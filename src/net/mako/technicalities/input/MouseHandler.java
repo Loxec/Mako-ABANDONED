@@ -1,4 +1,4 @@
-package net.mako.tdim.technicalities.input;
+package net.mako.technicalities.input;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

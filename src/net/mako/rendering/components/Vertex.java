@@ -1,4 +1,4 @@
-package net.mako.tdim.rendering.components;
+package net.mako.rendering.components;
 
 public class Vertex {
 

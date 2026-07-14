@@ -1,4 +1,4 @@
-package net.mako.tdim.rendering.msh;
+package net.mako.rendering.msh;
 
 public enum FormatType {
     NULL,

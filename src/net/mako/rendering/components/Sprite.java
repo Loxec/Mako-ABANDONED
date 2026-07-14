@@ -1,4 +1,4 @@
-package net.mako.tdim.rendering.components;
+package net.mako.rendering.components;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -25,6 +25,29 @@ public class Sprite {
         }
         this.x = x;
         this.y = y;
+
+        try {
+            URL url = getClass().getResource(path);
+
+            if (url == null) {
+                throw new RuntimeException("Sprite not found: " + path);
+            }
+
+            image = ImageIO.read(url);
+
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load sprite: " + path, e);
+        }
+    }
+
+    public Sprite(String path) {
+        if(path.startsWith("/")) {
+            this.path = path;
+        }else{
+            this.path = "/"+path;
+        }
+        this.x = 0;
+        this.y = 0;
 
         try {
             URL url = getClass().getResource(path);

@@ -1,7 +1,7 @@
-package net.mako.tdim.rendering.utilities;
+package net.mako.rendering.utilities;
 
-import net.mako.tdim.rendering.components.Triangle;
-import net.mako.tdim.rendering.components.Vertex;
+import net.mako.rendering.components.Triangle;
+import net.mako.rendering.components.Vertex;
 
 public class TriangleTransform {
     public static void translateX(double amount, Triangle triangle) {

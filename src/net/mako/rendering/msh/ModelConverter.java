@@ -1,9 +1,9 @@
-package net.mako.tdim.rendering.msh;
+package net.mako.rendering.msh;
 
-import net.mako.tdim.rendering.components.Mesh;
-import net.mako.tdim.rendering.components.Model;
-import net.mako.tdim.rendering.components.Triangle;
-import net.mako.tdim.rendering.components.Vertex;
+import net.mako.rendering.components.Mesh;
+import net.mako.rendering.components.Model;
+import net.mako.rendering.components.Triangle;
+import net.mako.rendering.components.Vertex;
 
 import java.awt.*;
 import java.io.*;

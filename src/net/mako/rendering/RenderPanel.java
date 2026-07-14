@@ -1,8 +1,8 @@
-package net.mako.tdim.rendering;
+package net.mako.rendering;
 
-import net.mako.tdim.technicalities.input.MouseHandler;
-import net.mako.tdim.rendering.components.*;
-import net.mako.tdim.technicalities.input.KeyHandler;
+import net.mako.technicalities.input.MouseHandler;
+import net.mako.rendering.components.*;
+import net.mako.technicalities.input.KeyHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,20 +17,31 @@ public class RenderPanel extends JPanel {
     private final List<Mesh> meshes = Collections.synchronizedList(new ArrayList<>());
     private final List<Sprite> sprites = Collections.synchronizedList(new ArrayList<>());
 
+    private final List<Mesh> deffered_meshes_register = Collections.synchronizedList(new ArrayList<>());
+    private final List<Mesh3D> deffered_meshes3D_register = Collections.synchronizedList(new ArrayList<>());
+    private final List<Sprite> deffered_sprites_register = Collections.synchronizedList(new ArrayList<>());
+
     public RenderPanel() {
 
         this.setBackground(Color.BLACK);
         this.setLayout(null);
         this.setDoubleBuffered(true);
+
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+
         this.setVisible(true);
 
     }
 
     public void addMeshToPanel(Mesh mesh) {
-        meshes.add(mesh);
+        deffered_meshes_register.add(mesh);
+    }
+    public void addMesh3DToPanel(Mesh3D mesh) {
+        deffered_meshes3D_register.add(mesh);
     }
     public void addSpriteToPanel(Sprite sprite) {
-        sprites.add(sprite);
+        deffered_sprites_register.add(sprite);
     }
     public void addModelToPanel(Model model, double cx, double cy) {
         for (Mesh mesh : new ArrayList<>(model.getMeshes())) {
@@ -45,7 +56,7 @@ public class RenderPanel extends JPanel {
                 }
             }
 
-            meshes.add(mesh);
+            deffered_meshes_register.add(mesh);
         }
     }
 
@@ -153,6 +164,26 @@ public class RenderPanel extends JPanel {
         drawMeshes(g2d);
         drawSprites(g2d);
         g2d.dispose();
+    }
+
+    public void refresh(){
+        this.getMeshes().clear();
+        this.getSprites().clear();
+
+        this.meshes.addAll(this.deffered_meshes_register);
+        this.sprites.addAll(this.deffered_sprites_register);
+    }
+
+    public void refresh3D(Camera camera) {
+        this.getMeshes().clear();
+        this.getSprites().clear();
+
+        this.meshes.addAll(this.deffered_meshes_register);
+        this.sprites.addAll(this.deffered_sprites_register);
+
+        for(Mesh3D mesh : this.deffered_meshes3D_register){
+            this.meshes.add(mesh.toMesh(camera));
+        }
     }
 
     public List<Mesh> getMeshes() {
