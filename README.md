@@ -4,6 +4,8 @@ A lightweight 2D/3D game engine built from scratch in Java.
 This project is the foundation of a custom game, created as a learning base for future game development
 ---
 
+(ABANDONED)
+
 ## Current Features
 
 ## RENDERING
